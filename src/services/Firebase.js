@@ -1,11 +1,9 @@
-import { initializeApp } from "firebase/app";
-import { getAuth, signInWithEmailAndPassword, signOut, createUserWithEmailAndPassword } from "firebase/auth";
+import { initializeApp } from "firebase/app"
+import { getAuth, signInWithEmailAndPassword, signOut, createUserWithEmailAndPassword } from "firebase/auth"
 import { getFirestore } from "firebase/firestore"
-import { collection, addDoc, getDocs, deleteDoc, doc } from "firebase/firestore";
-
-
-
+import { collection, addDoc, getDocs, deleteDoc, doc } from "firebase/firestore"
 import { storageSave, storageRemove, storageGet } from './Storage'
+
 const firebaseConfig = {
   apiKey: "AIzaSyCrf02fVpkSSjYvOn5fVL0iegxt9yJf9GU",
   authDomain: "mapabrechospf.firebaseapp.com",
@@ -15,7 +13,6 @@ const firebaseConfig = {
   appId: "1:131498397293:web:fc14c112edd86bd12eb964"
 };
 
-// Initialize Firebase
 initializeApp(firebaseConfig);
 const db = getFirestore();
 const auth = getAuth();
@@ -61,12 +58,10 @@ export const logoff = () => {
   })
 }
 
-
 export const saveCrimes = (crime, Geocode) => {
   return new Promise(async (resolve, reject) => {
     try {
       console.log(crime)
-      // descobrir a lat, lng do endereço informado
 
       Geocode.fromAddress(crime.endereco).then(
         async (response) => {
@@ -80,7 +75,6 @@ export const saveCrimes = (crime, Geocode) => {
           reject("Endereço incorreto!")
         }
       );
-
 
     } catch (error) {
       reject(error)
@@ -119,9 +113,6 @@ export const getCrimes = () => {
     }
   })
 }
-
-
-
 
 export const isAuthenticated = () => storageGet("TOKEN_KEY") !== null;
 export const getToken = () => storageGet("TOKEN_KEY")
