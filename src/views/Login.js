@@ -1,19 +1,24 @@
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
-import Grid from '@mui/material/Grid';
-import FormGroup from '@mui/material/FormGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
+import TextField from '@mui/material/TextField'
+import Button from '@mui/material/Button'
+import Grid from '@mui/material/Grid'
+import FormGroup from '@mui/material/FormGroup'
+import FormControlLabel from '@mui/material/FormControlLabel'
+import Checkbox from '@mui/material/Checkbox'
 import React, { useState, useLayoutEffect } from 'react'
 import { storageSave, storageRemove, storageGet } from "../services/Storage"
 import { login, getBrechos, sigin } from '../services/Firebase'
-import { useHistory } from "react-router-dom";
-import Alert from '@mui/material/Alert';
-import IconButton from '@mui/material/IconButton';
-import CloseIcon from '@mui/icons-material/Close';
-import Collapse from '@mui/material/Collapse';
-import GoogleMapReact from 'google-map-react';
-import RoomIcon from '@mui/icons-material/Room';
+import { useHistory } from "react-router-dom"
+import Alert from '@mui/material/Alert'
+import IconButton from '@mui/material/IconButton'
+import CloseIcon from '@mui/icons-material/Close'
+import Collapse from '@mui/material/Collapse'
+import GoogleMapReact from 'google-map-react'
+import RoomIcon from '@mui/icons-material/Room'
+
+import BrechosLista from './BrechosLista'
+import { HashRouter, Switch, Route, Redirect } from 'react-router-dom'
+import Menu from '../../src/components/Menu'
+import { isAuthenticated } from '../services/Firebase'
 
 const mapStyles = [
   {
@@ -235,7 +240,6 @@ function Login() {
         setMsg(error)
         setOpen(true)
         setErrorStatus(true)
-
       })
   }
 
@@ -250,8 +254,27 @@ function Login() {
       })
   }
 
+  const PrivateRoute = ({ component: Component, ...rest }) => {
+    return <Route
+      {...rest}
+      render={props => isAuthenticated() ? (
+        <>
+          <Menu />
+          <Component {...props} />
+        </>
+      ) : (
+        <Redirect to={{ pathname: "/", state: { from: props.location } }} />
+      )
+      }
+    />
+  }
 
   return (
+    // <HashRouter>
+    //   <Switch>
+    //     <PrivateRoute path="/brechoslista" component={BrechosLista} />
+    //     <Route path="*" component={Login} />
+    //   </Switch>
     <Grid container spacing={1}>
       <Grid item xs={4}></Grid>
       <Grid item xs={4}>
@@ -322,6 +345,9 @@ function Login() {
         <Button variant="contained" size="small" onClick={novoRegistro}>
           Novo Registro
         </Button>
+        <Button variant="contained" size="small" onClick={novoRegistro}>
+          Deixar recado
+        </Button>
 
       </Grid>
       <Grid item xs={3}></Grid>
@@ -352,6 +378,8 @@ function Login() {
 
       </Grid>
     </Grid >
+
+    // </HashRouter>
 
   );
 }

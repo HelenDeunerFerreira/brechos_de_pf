@@ -30,7 +30,7 @@ export default function BrechosLista() {
 
     return (
         <div>
-            <h1>Cadastro de Brechós</h1>
+            <h1>Lista de Brechós</h1>
             <Grid container spacing={1}>
                 <Grid item xs={12}>
                     <TableContainer component={Paper}>
