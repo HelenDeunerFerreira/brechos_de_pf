@@ -340,11 +340,11 @@ function Login() {
               styles: mapStyles
             }}
           >
-            {brechos.map((crime, id) => <AnyReactComponent
+            {brechos.map((brecho, id) => <AnyReactComponent
               key={id}
-              lat={crime.lat}
-              lng={crime.lng}
-              text={crime.descricao}
+              lat={brecho.lat}
+              lng={brecho.lng}
+              text={brecho.descricao}
             />)}
 
           </GoogleMapReact>

@@ -37,6 +37,7 @@ export default function BrechosLista() {
                         <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
                             <TableHead>
                                 <TableRow>
+                                    <TableCell align="left">Nome</TableCell>
                                     <TableCell align="left">Endereço</TableCell>
                                     <TableCell align="left">Descrição</TableCell>
                                     <TableCell align="left">Opções</TableCell>
@@ -48,6 +49,7 @@ export default function BrechosLista() {
                                         key={row.id}
                                         sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                                     >
+                                        <TableCell align="left">{row.nome}</TableCell>
                                         <TableCell align="left">{row.endereco}</TableCell>
                                         <TableCell align="left">{row.descricao}</TableCell>
                                         <TableCell align="left">

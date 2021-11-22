@@ -58,17 +58,17 @@ export const logoff = () => {
   })
 }
 
-export const saveBrechos = (crime, Geocode) => {
+export const saveBrechos = (brecho, Geocode) => {
   return new Promise(async (resolve, reject) => {
     try {
-      console.log(crime)
+      console.log(brecho)
 
-      Geocode.fromAddress(crime.endereco).then(
+      Geocode.fromAddress(brecho.endereco).then(
         async (response) => {
           const { lat, lng } = response.results[0].geometry.location;
-          crime.lat = lat
-          crime.lng = lng
-          await addDoc(collection(db, "brechos"), crime);
+          brecho.lat = lat
+          brecho.lng = lng
+          await addDoc(collection(db, "brechos"), brecho);
           resolve()
         },
         (error) => {
@@ -101,6 +101,7 @@ export const getBrechos = () => {
       querySnapshot.forEach((doc) => {
         dados.push({
           id: doc.id,
+          nome: doc.data().nome,
           endereco: doc.data().endereco,
           descricao: doc.data().descricao,
           lat: doc.data().lat,

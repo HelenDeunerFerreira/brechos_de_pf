@@ -14,6 +14,7 @@ Geocode.setApiKey("AIzaSyDZ6FmN2ATxJ44iuXR4yHIUKRgEGMsqmlQ");
 
 export default function Brechos() {
     let history = useHistory();
+    const [nome, setNome] = useState("")
     const [endereco, setEndereco] = useState("")
     const [descricao, setDescricao] = useState("")
     const [msg, setMsg] = useState("")
@@ -22,6 +23,7 @@ export default function Brechos() {
     const save = async () => {
 
         let objeto = {
+            nome: nome,
             endereco: endereco,
             descricao: descricao
         }
@@ -68,6 +70,18 @@ export default function Brechos() {
                             <TextField
                                 type="text"
                                 id="outlined-basic"
+                                label="Nome"
+                                variant="outlined"
+                                value={nome}
+                                size="small"
+                                fullWidth
+                                onChange={(e) => setNome(e.target.value)}
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <TextField
+                                type="text"
+                                id="outlined-basic"
                                 label="Endereço"
                                 variant="outlined"
                                 value={endereco}
@@ -96,9 +110,7 @@ export default function Brechos() {
                             </Button>
                         </Grid>
                     </Grid>
-
                 </Grid>
-
 
             </Grid>
         </div>
