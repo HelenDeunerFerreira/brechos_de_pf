@@ -58,7 +58,7 @@ export const logoff = () => {
   })
 }
 
-export const saveCrimes = (crime, Geocode) => {
+export const saveBrechos = (crime, Geocode) => {
   return new Promise(async (resolve, reject) => {
     try {
       console.log(crime)
@@ -68,7 +68,7 @@ export const saveCrimes = (crime, Geocode) => {
           const { lat, lng } = response.results[0].geometry.location;
           crime.lat = lat
           crime.lng = lng
-          await addDoc(collection(db, "crimes"), crime);
+          await addDoc(collection(db, "brechos"), crime);
           resolve()
         },
         (error) => {
@@ -82,10 +82,10 @@ export const saveCrimes = (crime, Geocode) => {
   })
 }
 
-export const deleteCrimes = (id) => {
+export const deleteBrechos = (id) => {
   return new Promise(async (resolve, reject) => {
     try {
-      await deleteDoc(doc(db, 'crimes', id));
+      await deleteDoc(doc(db, 'brechos', id));
       resolve()
     } catch (error) {
       reject(error)
@@ -93,10 +93,10 @@ export const deleteCrimes = (id) => {
   })
 }
 
-export const getCrimes = () => {
+export const getBrechos = () => {
   return new Promise(async (resolve, reject) => {
     try {
-      const querySnapshot = await getDocs(collection(db, "crimes"));
+      const querySnapshot = await getDocs(collection(db, "brechos"));
       let dados = []
       querySnapshot.forEach((doc) => {
         dados.push({

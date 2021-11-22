@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import { saveCrimes } from '../services/Firebase';
+import { saveBrechos } from '../services/Firebase';
 import { useHistory } from "react-router-dom";
 import Alert from '@mui/material/Alert';
 import IconButton from '@mui/material/IconButton';
@@ -12,8 +12,7 @@ import Collapse from '@mui/material/Collapse';
 import Geocode from "react-geocode";
 Geocode.setApiKey("AIzaSyDZ6FmN2ATxJ44iuXR4yHIUKRgEGMsqmlQ");
 
-
-export default function Crimes() {
+export default function Brechos() {
     let history = useHistory();
     const [endereco, setEndereco] = useState("")
     const [descricao, setDescricao] = useState("")
@@ -27,8 +26,8 @@ export default function Crimes() {
             descricao: descricao
         }
         try {
-            await saveCrimes(objeto, Geocode)
-            history.push("/crimeslista")
+            await saveBrechos(objeto, Geocode)
+            history.push("/brechoslista")
         } catch (error) {
             setMsg(error)
             setOpen(true)
@@ -37,7 +36,7 @@ export default function Crimes() {
 
     return (
         <div>
-            <h1>Cadastro de Crimes</h1>
+            <h1>Cadastro de Brechós</h1>
             <Grid container spacing={1}>
                 <Grid item xs={4}></Grid>
                 <Grid item xs={4}>

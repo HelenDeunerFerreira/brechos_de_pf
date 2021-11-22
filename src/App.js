@@ -3,8 +3,8 @@ import { HashRouter, Switch, Route, Redirect } from 'react-router-dom'
 import { isAuthenticated } from './services/Firebase'
 import Login from './views/Login'
 import Home from './views/Home'
-import Crimes from './views/Crimes'
-import CrimeLista from './views/CrimeLista'
+import Brechos from './views/Brechos'
+import BrechosLista from './views/BrechosLista'
 import Menu from './components/Menu'
 import Footer from './components/Footer'
 import Recados from './views/Recados'
@@ -31,8 +31,8 @@ function App() {
       <Switch>
         <Route path="/" exact={true} component={Login} />
         <PrivateRoute path="/home" component={Home} />
-        <PrivateRoute path="/crimes" component={Crimes} />
-        <PrivateRoute path="/crimeslista" component={CrimeLista} />
+        <PrivateRoute path="/brechos" component={Brechos} />
+        <PrivateRoute path="/brechoslista" component={BrechosLista} />
         <PrivateRoute path="/recados" component={Recados} />
 
         <Route path="*" component={Login} />

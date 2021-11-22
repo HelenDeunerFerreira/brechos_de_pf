@@ -1,7 +1,7 @@
 import React, { useState, useLayoutEffect } from 'react'
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
-import { deleteCrimes, getCrimes } from '../services/Firebase';
+import { deleteBrechos, getBrechos } from '../services/Firebase';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -10,30 +10,27 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
+export default function BrechosLista() {
 
-export default function CrimesLista() {
-
-    const [crimes, setCrimes] = useState([])
+    const [brechos, setBrechos] = useState([])
 
     useLayoutEffect(() => {
-        pegarCrimes()
+        pegarBrechos()
     }, [])
 
-
-    const pegarCrimes = async () => {
-        let dados = await getCrimes()
-        setCrimes(dados)
+    const pegarBrechos = async () => {
+        let dados = await getBrechos()
+        setBrechos(dados)
     }
 
     const deletar = async (id) => {
-        await deleteCrimes(id)
-        await pegarCrimes()
+        await deleteBrechos(id)
+        await pegarBrechos()
     }
-
 
     return (
         <div>
-            <h1>Cadastro de Crimes</h1>
+            <h1>Cadastro de Brechós</h1>
             <Grid container spacing={1}>
                 <Grid item xs={12}>
                     <TableContainer component={Paper}>
@@ -46,7 +43,7 @@ export default function CrimesLista() {
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {crimes.map((row) => (
+                                {brechos.map((row) => (
                                     <TableRow
                                         key={row.id}
                                         sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -54,7 +51,7 @@ export default function CrimesLista() {
                                         <TableCell align="left">{row.endereco}</TableCell>
                                         <TableCell align="left">{row.descricao}</TableCell>
                                         <TableCell align="left">
-                                            <Button onClick={() => deletar(row.id)} >Deletar</Button>
+                                            <Button onClick={() => deletar(row.id)}>Deletar</Button>
 
                                         </TableCell>
                                     </TableRow>

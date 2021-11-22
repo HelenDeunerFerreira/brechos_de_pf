@@ -6,7 +6,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import React, { useState, useLayoutEffect } from 'react'
 import { storageSave, storageRemove, storageGet } from "../services/Storage"
-import { login, getCrimes, sigin } from '../services/Firebase'
+import { login, getBrechos, sigin } from '../services/Firebase'
 import { useHistory } from "react-router-dom";
 import Alert from '@mui/material/Alert';
 import IconButton from '@mui/material/IconButton';
@@ -190,7 +190,7 @@ function Login() {
   const [msg, setMsg] = useState("")
   const [open, setOpen] = React.useState(false);
   const [errorStatus, setErrorStatus] = useState(true)
-  const [crimes, setCrimes] = useState([])
+  const [brechos, setBrechos] = useState([])
 
   useLayoutEffect(() => {
     let emailStorage = storageGet("email")
@@ -202,15 +202,14 @@ function Login() {
       setLembreme(true)
     }
 
-    pegarCrimes()
+    pegarBrechos()
 
   }, [])
 
-  const pegarCrimes = async () => {
-    let dados = await getCrimes()
-    setCrimes(dados)
+  const pegarBrechos = async () => {
+    let dados = await getBrechos()
+    setBrechos(dados)
   }
-
 
   const handleLembreme = (e) => {
     setLembreme(e.target.checked)
@@ -341,7 +340,7 @@ function Login() {
               styles: mapStyles
             }}
           >
-            {crimes.map((crime, id) => <AnyReactComponent
+            {brechos.map((crime, id) => <AnyReactComponent
               key={id}
               lat={crime.lat}
               lng={crime.lng}
