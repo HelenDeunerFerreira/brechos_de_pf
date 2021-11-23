@@ -14,11 +14,7 @@ import CloseIcon from '@mui/icons-material/Close'
 import Collapse from '@mui/material/Collapse'
 import GoogleMapReact from 'google-map-react'
 import RoomIcon from '@mui/icons-material/Room'
-
-import BrechosLista from './BrechosLista'
-import { HashRouter, Switch, Route, Redirect } from 'react-router-dom'
-import Menu from '../../src/components/Menu'
-import { isAuthenticated } from '../services/Firebase'
+import ListaContato from './ListaContato'
 
 const mapStyles = [
   {
@@ -181,6 +177,7 @@ const mapStyles = [
     ]
   }
 ]
+
 const AnyReactComponent = ({ text }) =>
   <div>
     <RoomIcon fontSize="large" color="error" />
@@ -192,6 +189,8 @@ function Login() {
   const [lembreme, setLembreme] = useState(false)
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  const [assunto, setAssunto] = useState("")
+  const [mensagem, setMensagem] = useState("")
   const [msg, setMsg] = useState("")
   const [open, setOpen] = React.useState(false);
   const [errorStatus, setErrorStatus] = useState(true)
@@ -229,7 +228,6 @@ function Login() {
   }
 
   const novoRegistro = async () => {
-
     sigin(email, password)
       .then((retorno) => {
         setMsg(retorno)
@@ -243,8 +241,21 @@ function Login() {
       })
   }
 
-  const efetuarLogin = async () => {
+  const contato = async () => {
+    sigin(email, password, assunto, mensagem)
+      .then((retorno) => {
+        setMsg(retorno)
+        setErrorStatus(false)
+        setOpen(true)
+      })
+      .catch(error => {
+        setMsg(error)
+        setOpen(true)
+        setErrorStatus(true)
+      })
+  }
 
+  const efetuarLogin = async () => {
     login(email, password)
       .then(() => history.push("/home"))
       .catch(error => {
@@ -254,30 +265,12 @@ function Login() {
       })
   }
 
-  const PrivateRoute = ({ component: Component, ...rest }) => {
-    return <Route
-      {...rest}
-      render={props => isAuthenticated() ? (
-        <>
-          <Menu />
-          <Component {...props} />
-        </>
-      ) : (
-        <Redirect to={{ pathname: "/", state: { from: props.location } }} />
-      )
-      }
-    />
-  }
-
   return (
-    // <HashRouter>
-    //   <Switch>
-    //     <PrivateRoute path="/brechoslista" component={BrechosLista} />
-    //     <Route path="*" component={Login} />
-    //   </Switch>
     <Grid container spacing={1}>
+
       <Grid item xs={4}></Grid>
       <Grid item xs={4}>
+
         <Collapse in={open}>
           <Alert
             severity={errorStatus ? "error" : "success"}
@@ -299,8 +292,10 @@ function Login() {
           </Alert>
         </Collapse>
       </Grid>
+
       <Grid item xs={4}></Grid>
       <Grid item xs={3}></Grid>
+
       <Grid item xs={6}>
         <TextField
           type="email"
@@ -312,8 +307,40 @@ function Login() {
           onChange={(e) => setEmail(e.target.value)}
         />
       </Grid>
+
       <Grid item xs={3}></Grid>
       <Grid item xs={3}></Grid>
+
+      <Grid item xs={6}>
+        <TextField
+          type="message"
+          id="outlined-basic"
+          label="Assunto"
+          variant="outlined"
+          fullWidth
+          value={assunto}
+          onChange={(e) => setAssunto(e.target.value)}
+        />
+      </Grid>
+
+      <Grid item xs={3}></Grid>
+      <Grid item xs={3}></Grid>
+
+      <Grid item xs={6}>
+        <TextField
+          type="message"
+          id="outlined-basic"
+          label="mensagem"
+          variant="outlined"
+          fullWidth
+          value={mensagem}
+          onChange={(e) => setMensagem(e.target.value)}
+        />
+      </Grid>
+
+      <Grid item xs={3}></Grid>
+      <Grid item xs={3}></Grid>
+
       <Grid item xs={6}>
         <TextField
           type="password"
@@ -323,11 +350,12 @@ function Login() {
           fullWidth
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-
         />
       </Grid>
+
       <Grid item xs={3}></Grid>
       <Grid item xs={3}></Grid>
+
       <Grid item xs={6}>
         <FormGroup>
           <FormControlLabel
@@ -338,18 +366,31 @@ function Login() {
             label="Lembre-me"
           />
         </FormGroup>
+
         <Button variant="contained" size="small" onClick={efetuarLogin}>
           Login
         </Button>
+
         <span> </span>
+
         <Button variant="contained" size="small" onClick={novoRegistro}>
           Novo Registro
         </Button>
-        <Button variant="contained" size="small" onClick={novoRegistro}>
-          Deixar recado
+
+        <span> </span>
+
+        <Button variant="contained" size="small" onClick={contato}>
+          Contato
+        </Button>
+
+        <span> </span>
+
+        <Button variant="contained" size="small" onClick={ListaContato} path="/listacontato" component={ListaContato}>
+          Lista de Brechós
         </Button>
 
       </Grid>
+
       <Grid item xs={3}></Grid>
 
       <Grid item xs={12}>
@@ -378,8 +419,6 @@ function Login() {
 
       </Grid>
     </Grid >
-
-    // </HashRouter>
 
   );
 }

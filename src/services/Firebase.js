@@ -115,6 +115,25 @@ export const getBrechos = () => {
   })
 }
 
+export const getContatos = () => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const querySnapshot = await getDocs(collection(db, "contatos"));
+      let dados = []
+      querySnapshot.forEach((doc) => {
+        dados.push({
+          id: doc.id,
+          assunto: doc.data().assunto,
+          mensagem: doc.data().mensagem,
+        })
+      });
+      resolve(dados)
+    } catch (error) {
+      reject(error)
+    }
+  })
+}
+
 export const isAuthenticated = () => storageGet("TOKEN_KEY") !== null;
 export const getToken = () => storageGet("TOKEN_KEY")
 

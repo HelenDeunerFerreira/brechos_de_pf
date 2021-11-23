@@ -24,16 +24,25 @@ export default function Menu() {
                     onClick={() => history.push("/brechos")}
                     fullWidth variant="outlined">Cadastro de Brechós</Button>
             </Grid>
+
             <Grid item xs={2}>
                 <Button
                     onClick={() => history.push("/brechoslista")}
                     fullWidth variant="outlined">Visualizar Brechós</Button>
             </Grid>
+
             <Grid item xs={2} className="nav-item mx-0 mx-lg-1">
                 <Button
                     onClick={() => history.push("/recados")}
-                    fullWidth variant="outlined">ver os Recados</Button>
+                    fullWidth variant="outlined">Ver os Recados</Button>
             </Grid>
+
+            <Grid item xs={2} className="nav-item mx-0 mx-lg-1">
+                <Button
+                    onClick={() => history.push("/listacontato")}
+                    fullWidth variant="outlined">Lista de Contatos</Button>
+            </Grid>
+
             <Grid item xs={2}>
                 <Button fullWidth variant="outlined" onClick={efetuarLogoff}>Logoff</Button>
             </Grid>

@@ -8,6 +8,7 @@ import BrechosLista from './views/BrechosLista'
 import Menu from './components/Menu'
 import Footer from './components/Footer'
 import Recados from './views/Recados'
+import ListaContato from './views/ListaContato'
 
 function App() {
 
@@ -34,6 +35,7 @@ function App() {
         <PrivateRoute path="/brechos" component={Brechos} />
         <PrivateRoute path="/brechoslista" component={BrechosLista} />
         <PrivateRoute path="/recados" component={Recados} />
+        <PrivateRoute path="/listacontato" component={ListaContato} />
 
         <Route path="*" component={Login} />
       </Switch>

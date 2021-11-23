@@ -1,7 +1,6 @@
 import React, { useState, useLayoutEffect } from 'react'
 import Grid from '@mui/material/Grid';
-import Button from '@mui/material/Button';
-import { deleteBrechos, getBrechos } from '../services/Firebase';
+import { getBrechos, getContatos } from '../services/Firebase';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -10,9 +9,11 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
-export default function BrechosLista() {
+export default function ListaContato() {
 
     const [brechos, setBrechos] = useState([])
+
+    const [contatos, setContatos] = useState([])
 
     useLayoutEffect(() => {
         pegarBrechos()
@@ -23,9 +24,13 @@ export default function BrechosLista() {
         setBrechos(dados)
     }
 
-    const deletar = async (id) => {
-        await deleteBrechos(id)
-        await pegarBrechos()
+    useLayoutEffect(() => {
+        pegarContatos()
+    }, [])
+
+    const pegarContatos = async () => {
+        let dados = await getContatos()
+        setContatos(dados)
     }
 
     return (
@@ -33,6 +38,7 @@ export default function BrechosLista() {
             <h1>Lista de Brechós</h1>
             <Grid container spacing={1}>
                 <Grid item xs={12}>
+
                     <TableContainer component={Paper}>
                         <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
                             <TableHead>
@@ -51,15 +57,41 @@ export default function BrechosLista() {
                                         <TableCell align="left">{row.nome}</TableCell>
                                         <TableCell align="left">{row.endereco}</TableCell>
                                         <TableCell align="left">{row.descricao}</TableCell>
-                                        <TableCell align="left">
-                                            <Button onClick={() => deletar(row.id)}>Deletar</Button>
-
-                                        </TableCell>
                                     </TableRow>
                                 ))}
                             </TableBody>
                         </Table>
                     </TableContainer>
+
+                    <h1>Contatos</h1>
+
+                    <Grid container spacing={1}>
+
+
+
+                        <TableContainer component={Paper}>
+                            <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
+                                <TableHead>
+                                    <TableRow>
+                                        <TableCell align="left">Assunto</TableCell>
+                                        <TableCell align="left">Mensagem</TableCell>
+                                    </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                    {contatos.map((row) => (
+                                        <TableRow
+                                            key={row.id}
+                                            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                        >
+                                            <TableCell align="left">{row.assunto}</TableCell>
+                                            <TableCell align="left">{row.mensagem}</TableCell>
+                                        </TableRow>
+                                    ))}
+                                </TableBody>
+                            </Table>
+                        </TableContainer>
+
+                    </Grid>
                 </Grid>
             </Grid>
         </div>
